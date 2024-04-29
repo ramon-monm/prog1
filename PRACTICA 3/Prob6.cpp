@@ -19,7 +19,7 @@ int main() {
             }
             if(triangulo) {break;}
         }
-        if(triangulo) {break;} // Recalcar que la instrucción break sirve para, una vez verificada la condición, evitar que los bucles se ejecuten íntegramente, decrementándose entonces cada variable. En otro caso, la salida mostraría la combinación coherente de variables, pero, cada una, una unidad menor. 
+        if(triangulo) {break;} // Recalcar que la instrucción break sirve para, una vez verificada la condición, evitar que los bucles se ejecuten hasta el final, decrementándose entonces cada variable. En otro caso, la salida mostraría la combinación coherente de variables, pero, cada una, una unidad menor. 
     }
     if(!triangulo) {
         cout<<"No existe ningún triángulo válido."<<endl;
