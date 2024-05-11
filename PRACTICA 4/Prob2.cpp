@@ -9,27 +9,39 @@ using namespace std;
 unsigned arabe(char ch);
 
 int main() {
-    char num;
-    unsigned suma=0;
+    char c;
+    unsigned prev=0, last, suma=0;
     cout<<"Escriba un número romano terminado en punto: ";
-    while(num!='.') {
-        suma=suma+arabe(ch);
-    }
-    cout<<"El número romano leído es: "<<suma<<endl;
+    do {
+        cin>>c;
+        last=arabe(c);
+        if(prev==0) {
+            suma+=last;
+        }
+        if(prev!=0) {
+            if(last>prev) {
+                suma+=(last-2*prev);
+            }
+            else {
+                suma+=last;
+            }
+        }
+        prev=last;        
+    } while(c!='.');
+    cout<<"El número romano leído es: "<<suma<<"."<<endl;
     return 0;
 }
 
 unsigned arabe(char ch) {
-    char prev='Z', last;
-    unsigned num;
+    unsigned a;
     switch(ch) {
-        case 'I': num=1;
-        case 'V': num=5;
-        case 'X': num=10;
-        case 'L': num=50;
-        case 'C': num=100;
-        case 'D': num=500;
-        case 'M': num=1000;
+        case 'I': a=1; break;
+        case 'V': a=5; break;
+        case 'X': a=10; break;
+        case 'L': a=50; break;
+        case 'C': a=100; break;
+        case 'D': a=500; break;
+        case 'M': a=1000; break;
     }
-    if()
+    return a;
 }

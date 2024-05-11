@@ -15,8 +15,8 @@ int main() {
     cout<<"Introduzca dos números naturales: ";
     cin>>A>>B;
     cout<<"Las parejas de números amigos comprendidos entre "<<A<<" y "<<B<<" son: "<<endl;
-    for(unsigned a=A; a<B; ++a) {
-        for(unsigned b=A; b<B; ++b) {
+    for(unsigned a=A; a<=B; ++a) {
+        for(unsigned b=a+1; b<=B; ++b) {
             if(amigos(a, b)) {
                 cout<<a<<" y "<<b<<endl;
             }
@@ -26,17 +26,17 @@ int main() {
 }
 
 unsigned suma_divisores(unsigned a) {
-    unsigned suma=0, cont;
-    for(cont=2; cont<a; ++cont) {
+    unsigned suma=0;
+    for(unsigned cont=2; cont<=a/2; ++cont) {
         if(a%cont==0) {
-            suma=suma+cont;
+            suma+=cont;
         }
     }
     return suma;
 }
 
 bool amigos(unsigned a, unsigned b) {
-    bool cond;
+    bool cond=false;
     if(suma_divisores(a)==b && suma_divisores(b)==a) {
         cond=true;
     }
