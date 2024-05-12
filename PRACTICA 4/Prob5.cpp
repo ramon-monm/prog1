@@ -6,7 +6,7 @@ calcularía 321. */
 #include <cmath>
 using namespace std;
 
-unsigned ud(unsigned &x);
+unsigned ud(unsigned x);
     
 int main() {
     unsigned n;
@@ -16,7 +16,7 @@ int main() {
     return 0;
 }
 
-unsigned ud(unsigned &x) {
+unsigned ud(unsigned x) {
     unsigned i, aux=x, num=0;
     for(i=0; aux!=0; ++i, aux/=10) {}
     for(i; i>0; --i) {

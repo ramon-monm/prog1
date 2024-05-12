@@ -7,17 +7,18 @@ utilizando el subalgoritmo escrito en el problema 6. Ejemplos de números capic�
 #include <cmath>
 using namespace std;
 
-unsigned ud(unsigned &x);
+unsigned ud(unsigned x);
 
 int main() {
     unsigned n;
     cout<<"Introduzca un número natural: ";
     cin>>n;
+    ud(n);
     cout<<(n==ud(n))<<endl;
     return 0;
 }
 
-unsigned ud(unsigned &x) {
+unsigned ud(unsigned x) {
     unsigned i, aux=x, num=0;
     for(i=0; aux!=0; ++i, aux/=10) {}
     for(i; i>0; --i) {
