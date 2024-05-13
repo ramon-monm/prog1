@@ -6,29 +6,30 @@ Para ello, implementar un subalgoritmo que tenga como parámetros de entrada “
 al programa principal el dígito solicitado. */
 
 #include <iostream>
+#include <cmath>
 using namespace std;
 
-int pos(unsigned &x, unsigned &y);
+unsigned digitos(unsigned &x);
+void pos(unsigned x, unsigned &y);
 
 int main() {
     unsigned N, i;
     cout<<"Introduzca dos números naturales N e i: ";
     cin>>N>>i;
-    cout<<pos(N, i);
+    pos(N, i);
+    cout<<N;
 }
 
-int pos(unsigned &x, unsigned &y) {
-    unsigned cont, op=x;
-    int cons;
-    for(cont=0; op!=0; ++cont, op/=10) {}
-    if(y>cont) {cons=-1;}
+unsigned digitos(unsigned &x) {
+    unsigned dig;
+    for(dig=0; x!=0; x/=10, ++dig) {}
+    return dig;
+}
+
+void pos(unsigned x, unsigned &y) {
+    if(y>digitos(x)) {x=-1;}
     else {
-        if(y>1) {
-            cons=(x%((x/10*y)*10*y))/(10*(y-1));
-        }
-        else if(y==1) {
-            cons=x%((x/10*y)*10*y);
-        }
+        x/=pow(10, y-1);
+        x%=10;
     }
-    return cons;
 }

@@ -7,8 +7,8 @@
 #include <iostream>
 using namespace std;
 
-unsigned suma_divisores(unsigned a);
-bool amigos(unsigned a, unsigned b);
+unsigned suma_divisores(unsigned &a);
+bool amigos(unsigned &a, unsigned &b);
 
 int main() {
     unsigned A, B;
@@ -25,9 +25,9 @@ int main() {
     return 0;
 }
 
-unsigned suma_divisores(unsigned a) {
+unsigned suma_divisores(unsigned &a) {
     unsigned suma=0;
-    for(unsigned cont=2; cont<=a/2; ++cont) {
+    for(unsigned cont=1; cont<=a/2; ++cont) {
         if(a%cont==0) {
             suma+=cont;
         }
@@ -35,10 +35,8 @@ unsigned suma_divisores(unsigned a) {
     return suma;
 }
 
-bool amigos(unsigned a, unsigned b) {
+bool amigos(unsigned &a, unsigned &b) {
     bool cond=false;
-    if(suma_divisores(a)==b && suma_divisores(b)==a) {
-        cond=true;
-    }
+    cond=(a==suma_divisores(b) && b==suma_divisores(a));
     return cond;
 }

@@ -13,18 +13,18 @@ correspondiente se hará en el algoritmo principal. */
 #include <iostream>
 using namespace std;
 
-void amigos(unsigned &x, unsigned &y);
-unsigned suma_divisores(unsigned a);
+void amigos(int &x, int &y);
+unsigned suma_divisores(int a);
 
-void combinatorio(unsigned &x, unsigned &y);
-unsigned fact(unsigned a);
+void combinatorio(int &x, int &y);
+unsigned fact(int a);
 
-void mcd(unsigned &x, unsigned &y);
+void mcd(int &x, int &y);
 
 int main() {
-    unsigned x, y;
+    int x, y;
     char c;
-    cout<<"Introduzca don números naturales y la operación a realizar: ";
+    cout<<"Introduzca dos números naturales y la operación a realizar: ";
     cin>>x; cin>>c; cin>>y;
     switch(c) {
         case '+': cout<<x+y<<endl; break;
@@ -39,9 +39,9 @@ int main() {
 }
 
 // Amigos
-unsigned suma_divisores(unsigned a) {
+unsigned suma_divisores(int a) {
     unsigned suma=0;
-    for(unsigned cont=2; cont<=a/2; ++cont) {
+    for(unsigned cont=1; cont<=a/2; ++cont) {
         if(a%cont==0) {
             suma+=cont;
         }
@@ -49,13 +49,13 @@ unsigned suma_divisores(unsigned a) {
     return suma;
 }
 
-void amigos(unsigned &x, unsigned &y) {
+void amigos(int &x, int &y) {
     unsigned A, B;
-    cout<<"Las parejas de números amigos comprendidas entre "<<x<<" y "<<y<<" son: ";
+    cout<<"Las parejas de números amigos comprendidas entre "<<x<<" y "<<y<<" son: "<<endl;
     if(x<y) {A=x; B=y;}
     else {A=y; B=x;}
     for(unsigned a=A; a<B; ++a) {
-        for(unsigned b=a; b<B; ++b) {
+        for(unsigned b=a+1; b<B; ++b) {
             if(suma_divisores(a)==b && suma_divisores(b)==a) {
             cout<<a<<" y "<<b<<endl;
             }
@@ -64,7 +64,7 @@ void amigos(unsigned &x, unsigned &y) {
 }
 
 // Combinatorio
-unsigned fact(unsigned a) {
+unsigned fact(int a) {
     unsigned factorial=a;
     for(unsigned i=a-1; i>1; --i) {
         factorial*=i;
@@ -72,7 +72,7 @@ unsigned fact(unsigned a) {
     return factorial;
 }
 
-void combinatorio(unsigned &x, unsigned &y) {
+void combinatorio(int &x, int &y) {
     unsigned A, B;
     if(x<y) {A=x; B=y;}
     else {A=y; B=x;}
@@ -80,7 +80,7 @@ void combinatorio(unsigned &x, unsigned &y) {
 }
 
 // MCD
-void mcd(unsigned &x, unsigned &y) {
+void mcd(int &x, int &y) {
     unsigned A, B, mcd;
     if(x<y) {A=x; B=y;}
     else {A=y; B=x;}
