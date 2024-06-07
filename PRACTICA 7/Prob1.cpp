@@ -23,25 +23,38 @@ bool pasaFiltro(string &f, string &x);
 bool longitud(string &f, string &x);
 void leerSecuencia(string &x);
 
-void prog1() {
-    string filtro, palabra;
-    leerFiltro(filtro);
+void prog1(string &filtro) {
+    string palabra;
     leerPalabra(palabra);
     cout<<"¿La palabra pasa el filtro?: "<<pasaFiltro(filtro, palabra)<<endl;
 }
 
-void prog2() {
-    string secuencia, filtro;
-    leerFiltro(filtro);
+void prog2(string &filtro) {
+    bool fin=false;
+    string secuencia, palabra;
     leerSecuencia(secuencia);
+    cout<<"Palabras que han pasado el filtro: "<<endl;
+    for(unsigned i=0; i<secuencia.find("fin"); ++i) {
+        if(secuencia[i]!=' ') {
+            palabra+=secuencia[i];
+        }
+        else if(secuencia[i]==' ') {
+            if(pasaFiltro(filtro, palabra)) {
+                cout<<palabra<<" ";
+            }
+            palabra.erase(0, size(palabra));
+        }
+    }
 }
 
 int main() {
+    string filtro;
     unsigned menu;
+    leerFiltro(filtro);
     cout<<"Elija el programa a ejecutar: "<<endl<<"1. Comprobar si una palabra pasa un filtro."<<endl<<"2. Comprobar qué palabras de una secuencia pasa un filtro."<<endl;
     cin>>menu;
-    if(menu==1) {prog1();}
-    else if(menu==2) {prog2();}
+    if(menu==1) {prog1(filtro);}
+    else if(menu==2) {prog2(filtro);}
     return 0;
 }
 
@@ -76,8 +89,6 @@ bool longitud(string &f, string &x) {
 
 void leerSecuencia(string &x) {
     cout<<"Introduzca una secuencia de palabras, acabada en ''fin'': ";
-    cin>>x;
-    cin.ignore(' ');
+    cin.ignore();
     getline(cin, x);
-    cout<<x<<endl;
 }

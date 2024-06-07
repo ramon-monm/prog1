@@ -20,20 +20,28 @@ palíndromo. */
 using namespace std;
 
 void fraseMinuscula(string &x);
-void fraseNoEspaciada(string &x);
+void fraseNoEspaciada(string &x, string &y);
+void limpiarFrase(string &x, string &y);
+void invertirFrase(string &x, string &y);
 
 
 int main() {
-    string frase;
+    string frase, frase_limpia, frase_invertida;
+    unsigned programa;
     cout<<"Introduzca una frase de entrada: ";
     getline(cin, frase);
-    fraseMinuscula(frase);
-    cout<<frase<<endl;
-    getline(cin, frase);
-    fraseNoEspaciada(frase);
-    cout<<frase<<endl;
+    cout<<"Indique la operación a realizar: "<<endl<<"1.- Limipar la frase."<<endl<<"2.- Invertir la frase."<<endl;
+    cin>>programa;
+    if(programa==1) {limpiarFrase(frase, frase_limpia); cout<<frase_limpia<<endl;}
+    else if(programa==2) {invertirFrase(frase, frase_invertida); cout<<frase_invertida<<endl;}
     return 0;
+}
 
+void invertirFrase(string &x, string &y) {
+    fraseMinuscula(x);
+    for(unsigned i=size(x); i>0; --i) {
+        y+=x[i-1];
+    }
 }
 
 void fraseMinuscula(string &x) {
@@ -44,10 +52,15 @@ void fraseMinuscula(string &x) {
     }
 }
 
-void fraseNoEspaciada(string &x) {
+void fraseNoEspaciada(string &x, string &y) {
     for(unsigned i=0; i<size(x); ++i) {
-        if(x[i]==' ') {
-            x.erase(i);
+        if(x[i]>='a' && x[i]<='z') {
+            y+=x[i];
         }
     }
+}
+
+void limpiarFrase(string &x, string &y) {
+    fraseMinuscula(x);
+    fraseNoEspaciada(x, y);
 }

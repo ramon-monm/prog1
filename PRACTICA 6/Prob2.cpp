@@ -12,54 +12,70 @@ Este gráfico indica que la “a” no aparece ninguna vez, la “e” aparece u
 veces, la “o” tres veces y la “u” una vez. */
 
 #include <iostream>
+#include <array>
 #include <string>
 using namespace std;
 
-void frecuencias(string &x, unsigned &fa, unsigned &fe, unsigned &fi, unsigned &fo, unsigned &fu, unsigned &mayor);
-char minuscula(char &c);
-void hist(unsigned &fa, unsigned &fe, unsigned &fi, unsigned &fo, unsigned &fu, unsigned &mayor);
+const int J=5;
+typedef array <int, J> Tvector;
+
+void fraseMinuscula(string &x);
+void freq(string &x, Tvector &v, unsigned &f);
+void construirMatriz(const int &J, const int &F, Tvector &v);
 
 int main() {
+    const int J=5;
     string frase;
-    unsigned fa=0, fe=0, fi=0, fo=0, fu=0, mayor;
+    Tvector frecuencias;
+    unsigned f;
     cout<<"Introduzca una frase de entrada: ";
     getline(cin, frase);
-    frecuencias(frase, fa, fe, fi, fo, fu, mayor);
-    hist(fa, fe, fi, fo, fu, mayor);
+    freq(frase, frecuencias, f);
+    const int F=f;
+    construirMatriz(J, F, frecuencias);
     return 0;
 }
 
-char minuscula(char &c) {
-    if(c>='A' && c<='Z') {
-        c+=32;
+void fraseMinuscula(string &x) {
+    for(unsigned i=0; i<=size(x); ++i) {
+        if(x[i]>='A' && x[i]<='Z') {
+            x[i]+=32;
+        }
     }
-    return c;
 }
 
-void frecuencias(string &x, unsigned &fa, unsigned &fe, unsigned &fi, unsigned &fo, unsigned &fu, unsigned &mayor) {
+void freq(string &x, Tvector &v, unsigned &f) {
+    fraseMinuscula(x);
+    v={0};
     for(unsigned i=0; i<size(x); ++i) {
-        if(x[i]=='a' || minuscula(x[i])=='a') {++fa;}
-        if(x[i]=='e' || minuscula(x[i])=='e') {++fe;}
-        if(x[i]=='i' || minuscula(x[i])=='i') {++fi;}
-        if(x[i]=='o' || minuscula(x[i])=='o') {++fo;}
-        if(x[i]=='u' || minuscula(x[i])=='u') {++fu;}
+        switch(x[i]) {
+            case 'a': ++v[0];
+            case 'e': ++v[1];
+            case 'i': ++v[2];
+            case 'o': ++v[3];
+            case 'u': ++v[4];
+        }
     }
-    mayor=fa;
-    if(fe>fa) {mayor=fe;}
-    if(fi>fe) {mayor=fi;}
-    if(fo>fi) {mayor=fo;}
-    if(fu>fo) {mayor=fu;}
+    f=v[0];
+    for(unsigned j=1; j<J; ++j) {
+        if(v[j]>f) {f=v[j];};
+    }
 }
 
-void hist(unsigned &fa, unsigned &fe, unsigned &fi, unsigned &fo, unsigned &fu, unsigned &mayor) {
-    char cara=' ', care=' ', cari=' ', caro=' ', caru=' ';
-    for(mayor; mayor>0; --mayor) {
-        if(fa>=mayor) {cara='*';}
-        if(fe>=mayor) {care='*';}
-        if(fi>=mayor) {cari='*';}
-        if(fo>=mayor) {caro='*';}
-        if(fu>=mayor) {caru='*';}
-        cout<<" "<<cara<<" "<<care<<" "<<cari<<" "<<caro<<" "<<caru<<endl;
+void construirMatriz(const int &J, const int &F, Tvector &v) {
+    typedef array <Tvector, F> Tmatrix;
+    Tmatrix hist;
+    Tvector aux=v;
+    for(unsigned i=F; i>0, --i;) {
+        for(unsigned j=0; i<J; ++i) {
+            if(aux[j]>0) {
+                hist[i-1][j]=" *";
+                --aux[j];
+            }
+            else if(aux[j]==0) {
+                hist[i-1][j]="  ";
+            }
+        }
     }
-    cout<<"==========="<<'\n'<<" a e i o u"<<endl;
+    cout<<hist<<'\n'<<'\n'<<"=========="<<'\n'<<'\n'<<" a b c d"<<endl;
 }
