@@ -66,16 +66,16 @@ void construirMatriz(const int &J, const int &F, Tvector &v) {
     typedef array <Tvector, F> Tmatrix;
     Tmatrix hist;
     Tvector aux=v;
-    for(unsigned i=F; i>0, --i;) {
-        for(unsigned j=0; i<J; ++i) {
-            if(aux[j]>0) {
+    for(unsigned i=F; i>0, --i) {
+        for(unsigned j=0; j<5; ++j) {
+            if(aux[j]>=i) {
                 hist[i-1][j]=" *";
                 --aux[j];
             }
             else if(aux[j]==0) {
                 hist[i-1][j]="  ";
-            }
+            } // Quitar
         }
     }
-    cout<<hist<<'\n'<<'\n'<<"=========="<<'\n'<<'\n'<<" a b c d"<<endl;
+    cout<<hist<<'\n'<<'\n'<<"=========="<<'\n'<<'\n'<<" a e i o u"<<endl;
 }
