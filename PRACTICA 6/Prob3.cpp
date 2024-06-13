@@ -10,32 +10,58 @@ recibida como entrada cuya suma tiene el valor más cercano a N. Estos dos valor
 posteriormente en pantalla desde el algoritmo principal.
 Por ejemplo, para estas entradas se obtienen los valores que se indican:
 Tamaño Lista de enteros Valor N Salida por pantalla
- 5 9,-3, -10, -4, -5 4 [9,-5]
- 4 1, 3, 5, 4 2 [1, 3]
- 6 0, 2, -10, 10, 5, 4 0 [-10,10] */
+5 9,-3, -10, -4, -5 4 [9,-5]
+4 1, 3, 5, 4 2 [1, 3]
+6 0, 2, -10, 10, 5, 4 0 [-10,10] */
 
- #include <iostream>
- #include <array>
- #include <string>
- using namespace std;
+#include <iostream>
+#include <array>
+#include <string>
+using namespace std;
 
- const int T=10;
- typedef array <int, T> Tvector;
+const int T=10;
+typedef array <int, T> Tvector;
 
- int main() {
-    int N;
-    Tvector v;
-    string list;
-    cout<<"Introduzca un número natural N: ";
-    cin>>N;
-    cout<<"Introduzca un elemento de la lista: ";
-    cin>>v[0];
-    for(unsigned i=1; i<T; ++i) {
-        cout<<"Introduzca otro elemento de la lista: ";
+void leerDatos(Tvector &v, unsigned &t);
+void sumaProx(Tvector &v, unsigned &t);
+unsigned dist(int &a, int &b);
+
+int main() {
+    Tvector lista;
+    unsigned tam;
+    leerDatos(lista, tam);
+    sumaProx(lista, tam);
+    return 0;
+}
+
+void leerDatos(Tvector &v, unsigned &t) {
+    cout<<"Introduzca el número de dígitos de la lista: ";
+    cin>>t;
+    cout<<"Introduzca los valores de la lista: ";
+    for(unsigned i=0; i<t; ++i) {
         cin>>v[i];
     }
-    for(unsigned i=0; i<T; ++i) {
-        cout<<v[i];
+}
+
+void sumaProx(Tvector &v, unsigned &t) {
+    int N;
+    unsigned I=0, J=1;
+    int suma=v[I]+v[J];
+    unsigned aprox=dist(N, suma);
+    cout<<"Introduzca un valor natural al que aproximar la suma del par de componentes: ";
+    cin>>N;
+    for(unsigned i=0; i<t-1; ++i) {
+        for(unsigned j=i+1; j<t; ++j) {
+            suma=v[i]+v[j];
+            if(dist(N, suma)<aprox) {aprox=dist(N, suma); I=i; J=j;}
+        }
     }
-    return 0;
+    cout<<v[I]<<" "<<v[J]<<endl;
+}
+
+unsigned dist(int &a, int &b) {
+    unsigned d;
+    if(a-b<0) {d=-(a-b);}
+    else {d=a-b;};
+    return d;
 }

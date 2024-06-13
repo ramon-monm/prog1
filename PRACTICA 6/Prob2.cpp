@@ -21,18 +21,16 @@ typedef array <int, J> Tvector;
 
 void fraseMinuscula(string &x);
 void freq(string &x, Tvector &v, unsigned &f);
-void construirMatriz(const int &J, const int &F, Tvector &v);
+void histograma(Tvector &v, unsigned &f);
 
 int main() {
-    const int J=5;
     string frase;
     Tvector frecuencias;
-    unsigned f;
+    unsigned frecmax;
     cout<<"Introduzca una frase de entrada: ";
     getline(cin, frase);
-    freq(frase, frecuencias, f);
-    const int F=f;
-    construirMatriz(J, F, frecuencias);
+    freq(frase, frecuencias, frecmax);
+    histograma(frecuencias, frecmax);
     return 0;
 }
 
@@ -49,11 +47,11 @@ void freq(string &x, Tvector &v, unsigned &f) {
     v={0};
     for(unsigned i=0; i<size(x); ++i) {
         switch(x[i]) {
-            case 'a': ++v[0];
-            case 'e': ++v[1];
-            case 'i': ++v[2];
-            case 'o': ++v[3];
-            case 'u': ++v[4];
+            case 'a': ++v[0]; break;
+            case 'e': ++v[1]; break;
+            case 'i': ++v[2]; break;
+            case 'o': ++v[3]; break;
+            case 'u': ++v[4]; break;
         }
     }
     f=v[0];
@@ -62,20 +60,14 @@ void freq(string &x, Tvector &v, unsigned &f) {
     }
 }
 
-void construirMatriz(const int &J, const int &F, Tvector &v) {
-    typedef array <Tvector, F> Tmatrix;
-    Tmatrix hist;
-    Tvector aux=v;
-    for(unsigned i=F; i>0, --i) {
-        for(unsigned j=0; j<5; ++j) {
-            if(aux[j]>=i) {
-                hist[i-1][j]=" *";
-                --aux[j];
-            }
-            else if(aux[j]==0) {
-                hist[i-1][j]="  ";
-            } // Quitar
+void histograma(Tvector &v, unsigned &f) {
+    cout<<endl;
+    for(f; f>0; --f) {
+        for(unsigned i=0; i<J; ++i) {
+            if(v[i]>=f) {cout<<" *";}
+            else {cout<<"  ";}
         }
+        cout<<endl;
     }
-    cout<<hist<<'\n'<<'\n'<<"=========="<<'\n'<<'\n'<<" a e i o u"<<endl;
+    cout<<" ========="<<endl<<" a e i o u"<<endl;
 }
